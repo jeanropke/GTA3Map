@@ -1581,15 +1581,7 @@ a.no-style:visited {
 
 /* end dark mode styling */
 
-.properties, .legendary-properties {
-    margin: 10px 0;
+button.full-popup-width {
+    margin: 10px 0 5px 0;
     width: 100%;
-}
-
-.legendary-properties {
-    line-height: 1.8rem;
-}
-
-.legendary-properties p {
-    max-width: 60%;
 }
