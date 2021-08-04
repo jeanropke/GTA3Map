@@ -1,0 +1,47 @@
+[
+  {
+    "color": "pink",
+    "key": "safehouses",
+    "locations": [
+      {"text": "safehouse_1", "x": -27.7578, "y": 34.4688},
+      {"text": "safehouse_2", "x": -29.7656, "y": 25.2969},
+      {"text": "safehouse_3", "x": -24.3594, "y": 16.0000}
+    ]
+  },
+  {
+    "color": "black",
+    "key": "bomb_shops",
+    "locations": [
+      {"text": "bomb_shop_1", "x": -25.2969, "y": 39.4375},
+      {"text": "bomb_shop_2", "x": -30.8906, "y": 28.5938},
+      {"text": "bomb_shop_3", "x": -23.3281, "y": 10.9063}
+    ]
+  },
+  {
+    "color": "green",
+    "key": "ammunations",
+    "locations": [
+      {"text": "ammunation_1", "x": -28.7969, "y": 36.8750},
+      {"text": "ammunation_2", "x": -32.5938, "y": 28.2188},
+      {"text": "ammunation_3", "x": -24.0156, "y": 9.5313}
+    ]
+  },
+  {
+    "color": "orange",
+    "key": "paynsprays",
+    "locations": [
+      {"text": "paynspray_1", "x": -28.2344, "y": 35.1406},
+      {"text": "paynspray_2", "x": -29.9688, "y": 28.6250},
+      {"text": "paynspray_3", "x": -23.6406, "y": 10.2656}
+    ]
+  },
+  {
+    "color": "yellow",
+    "key": "garages",
+    "locations": [
+      {"text": "garage_1", "x": -32.2656, "y": 42.9141},
+      {"text": "garage_2", "x": -32.0000, "y": 42.2969},
+      {"text": "garage_3", "x": -22.2813, "y": 10.6250}
+    ]
+  }
+]
