@@ -200,6 +200,7 @@ select {
 #map h1 {
     font-size: 15px;
     text-align: center;
+    font-family: 'Arial Black';
 }
 
 .tool-type {
