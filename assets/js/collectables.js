@@ -21,15 +21,15 @@ class Collectable {
     this.onLanguageChanged();
 
     this.element = $(`<div class="menu-option clickable" data-help="item_category" data-type="${this.key}">`)
-        .toggleClass('disabled', !this.onMap)
-        .on('click', () => this.onMap = !this.onMap)
-        .append($('<span>')
+      .toggleClass('disabled', !this.onMap)
+      .on('click', () => this.onMap = !this.onMap)
+      .append($('<span>')
         .append(
           $(`<img class="icon" src="./assets/images/icons/${this.key}.png">`))
-          .append($('<span class="menu-option-text">').attr('data-text', `menu.${this.key}`)))
-        .translate();
+        .append($('<span class="menu-option-text">').attr('data-text', `menu.${this.key}`)))
+      .translate();
 
-      this.element.appendTo(Collectable.context);
+    this.element.appendTo(Collectable.context);
 
     if (this.onMap)
       this.layer.addTo(MapBase.map);
@@ -63,7 +63,7 @@ class Collectable {
           time: marker.subdata,
         }),
       });
-      tempMarker.bindPopup(marker.updateMarkerContent.bind(marker, () => {marker.isCollected = !marker.isCollected; tempMarker.setOpacity(marker.isCollected ? .25 : 1);}), { minWidth: 300, maxWidth: 400 });
+      tempMarker.bindPopup(marker.updateMarkerContent.bind(marker, () => { marker.isCollected = !marker.isCollected; tempMarker.setOpacity(marker.isCollected ? .25 : 1); }), { minWidth: 300, maxWidth: 400 });
 
       this.layer.addLayer(tempMarker);
       if (Settings.isMarkerClusterEnabled)

@@ -4,7 +4,6 @@ const MapBase = {
   map: null,
   overlays: [],
   isDarkMode: false,
-  interiors: false,
   updateLoopAvailable: true,
   updateTippyTimer: null,
   requestLoopCancel: false,
@@ -239,11 +238,6 @@ const MapBase = {
     window.loaded = true;
   },
 
-  disableAll: function (toShow = false) {
-    Location.locations.forEach(location => location.onMap = toShow);
-    Collectable.locations.forEach(collectable => collectable.onMap = toShow);
-  },
-
   loadOverlaysBeta: function () {
     $.getJSON('data/overlays_beta.json?nocache=' + nocache)
       .done(function (data) {
@@ -337,7 +331,7 @@ const MapBase = {
     }
     MapBase.index++;
     console.log(`{"text": "safehouse_${MapBase.index}", "x": ${coords.latlng.lat.toFixed(4)}, "y": ${coords.latlng.lng.toFixed(4)}},`);
-    
+
     // Remove this false if you want to manually create the heatmap.
     if (false && Settings.isDebugEnabled) {
       console.log(`{ "lat": ${coords.latlng.lat.toFixed(4)}, "lng": ${coords.latlng.lng.toFixed(4)} },`);

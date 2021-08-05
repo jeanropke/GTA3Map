@@ -3,7 +3,7 @@ class Pickup {
     this.quickParams = [];
     this.locations = [];
     this.context = $('#menu-container');
-    
+
     return Loader.promises['pickups'].consumeJson(data => {
       data.forEach(item => {
         this.locations.push(new Pickup(item));
@@ -21,15 +21,15 @@ class Pickup {
     this.onLanguageChanged();
 
     this.element = $(`<div class="menu-option clickable" data-help="item_category" data-type="${this.key}">`)
-        .toggleClass('disabled', !this.onMap)
-        .on('click', () => this.onMap = !this.onMap)
-        .append($('<span>')
+      .toggleClass('disabled', !this.onMap)
+      .on('click', () => this.onMap = !this.onMap)
+      .append($('<span>')
         .append(
           $(`<img class="icon" src="./assets/images/icons/${this.key}.png">`))
-          .append($('<span class="menu-option-text">').attr('data-text', `menu.${this.key}`)))
-        .translate();
+        .append($('<span class="menu-option-text">').attr('data-text', `menu.${this.key}`)))
+      .translate();
 
-      this.element.appendTo(Pickup.context);
+    this.element.appendTo(Pickup.context);
 
     if (this.onMap)
       this.layer.addTo(MapBase.map);
@@ -63,7 +63,7 @@ class Pickup {
           time: marker.subdata,
         }),
       });
-      tempMarker.bindPopup(marker.updateMarkerContent.bind(marker, () => {this.onMap = false; console.log(this)}), { minWidth: 300, maxWidth: 400 });
+      tempMarker.bindPopup(marker.updateMarkerContent.bind(marker, () => { this.onMap = false; console.log(this) }), { minWidth: 300, maxWidth: 400 });
 
       this.layer.addLayer(tempMarker);
       if (Settings.isMarkerClusterEnabled)

@@ -137,7 +137,7 @@ const SettingProxy = (function () {
 const Settings = SettingProxy.createSettingProxy('gta3');
 Object.entries({
   alertClosed: { default: false },
-  baseLayer: { default: 'map.layers.colorful' },  
+  baseLayer: { default: 'map.layers.colorful' },
   isCoordsOnClickEnabled: { default: false },
   isRightClickEnabled: { default: false },
   isDebugEnabled: { default: false },

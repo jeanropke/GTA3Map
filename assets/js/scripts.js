@@ -188,7 +188,7 @@ $('#marker-size').on('change', function () {
 
 $('#marker-opacity').on('change', function () {
   Settings.markerOpacity = Number($('#marker-opacity').val());
-  
+
   Collectable.onSettingsChanged();
   Location.onSettingsChanged();
   Pickup.onSettingsChanged();
@@ -286,7 +286,7 @@ $(document).on('contextmenu', function (e) {
 
 $('#delete-all-settings').on('click', function () {
   $.each(localStorage, function (key) {
-    if(key.startsWith('gta3.'))
+    if (key.startsWith('gta3.'))
       localStorage.removeItem(key);
   });
 

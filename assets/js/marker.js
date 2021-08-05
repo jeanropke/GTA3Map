@@ -30,7 +30,7 @@ class Marker {
           return Language.get(`map.${this.category}.${this.text}.desc`);
         case 'locations':
         case 'weapons':
-            return Language.get(`map.${this.category}.${this.subdata}.desc`);        
+          return Language.get(`map.${this.category}.${this.subdata}.desc`);
         default:
           return Language.get(`map.${this.category}.desc`);
       }
