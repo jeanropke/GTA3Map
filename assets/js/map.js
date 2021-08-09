@@ -221,10 +221,6 @@ const MapBase = {
         if (item.markers.length !== 1) return;
         MapBase.map.setView({ lat: item.markers[0].lat, lng: item.markers[0].lng }, 5);
       }
-
-      if (Encounter.quickParams.indexOf(quickParam) !== -1) {
-        Encounter.locations.filter(locationMarkerFilter);
-      }
     }
 
     Menu.updateTippy();
@@ -294,7 +290,7 @@ const MapBase = {
       });
     }
     MapBase.index++;
-    console.log(`{"text": "safehouse_${MapBase.index}", "x": ${coords.latlng.lat.toFixed(4)}, "y": ${coords.latlng.lng.toFixed(4)}},`);
+    //console.log(`{"text": "safehouse_${MapBase.index}", "x": ${coords.latlng.lat.toFixed(4)}, "y": ${coords.latlng.lng.toFixed(4)}},`);
 
     // Remove this false if you want to manually create the heatmap.
     if (false && Settings.isDebugEnabled) {
