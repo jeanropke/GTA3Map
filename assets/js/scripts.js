@@ -60,10 +60,9 @@ function init() {
 
   const collectables = Collectable.init();
   const locations = Location.init();
-  const pickups = Pickup.init();
   const weapons = Weapon.init();
 
-  Promise.all([collectables, locations, pickups, weapons])
+  Promise.all([collectables, locations, weapons])
     .then(() => {
       Loader.resolveMapModelLoaded();
       MapBase.afterLoad();
@@ -169,7 +168,6 @@ $('#language').on('change', function () {
 
   Collectable.onLanguageChanged();
   Location.onLanguageChanged();
-  Pickup.onLanguageChanged();
   Weapon.onLanguageChanged();
 
   MapBase.updateTippy('language');
@@ -180,7 +178,6 @@ $('#marker-size').on('change', function () {
 
   Collectable.onSettingsChanged();
   Location.onSettingsChanged();
-  Pickup.onSettingsChanged();
   Weapon.onSettingsChanged();
 
   Pins.loadPins();
@@ -191,7 +188,6 @@ $('#marker-opacity').on('change', function () {
 
   Collectable.onSettingsChanged();
   Location.onSettingsChanged();
-  Pickup.onSettingsChanged();
   Weapon.onSettingsChanged();
 
   Pins.loadPins();
@@ -214,7 +210,6 @@ $('#marker-cluster').on('change', function () {
 
   Collectable.onSettingsChanged();
   Location.onSettingsChanged();
-  Pickup.onSettingsChanged();
   Weapon.onSettingsChanged();
 
   Pins.loadPins();
@@ -229,7 +224,6 @@ $('#enable-marker-shadows').on('change', function () {
 
   Collectable.onSettingsChanged();
   Location.onSettingsChanged();
-  Pickup.onSettingsChanged();
   Weapon.onSettingsChanged();
 
   Pins.loadPins();

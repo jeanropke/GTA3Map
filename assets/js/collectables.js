@@ -63,8 +63,12 @@ class Collectable {
           time: marker.subdata,
         }),
       });
-      tempMarker.bindPopup(marker.updateMarkerContent.bind(marker, () => { marker.isCollected = !marker.isCollected; tempMarker.setOpacity(marker.isCollected ? .25 : 1); }), { minWidth: 300, maxWidth: 400 });
 
+      if(this.collectable)
+        tempMarker.bindPopup(marker.updateMarkerContent.bind(marker, () => { marker.isCollected = !marker.isCollected; tempMarker.setOpacity(marker.isCollected ? .25 : 1); }), { minWidth: 300, maxWidth: 400 });
+      else      
+        tempMarker.bindPopup(marker.updateMarkerContent.bind(marker, () => { this.onMap = false; console.log(this) }), { minWidth: 300, maxWidth: 400 });
+        
       this.layer.addLayer(tempMarker);
       if (Settings.isMarkerClusterEnabled)
         Layers.oms.addMarker(tempMarker);

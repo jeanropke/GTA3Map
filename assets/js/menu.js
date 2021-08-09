@@ -35,9 +35,6 @@ class Menu {
       Location.locations.forEach(_loc => {
         if (_loc.onMap) _loc.onMap = !_loc.onMap;
       });
-      Pickup.locations.forEach(_pic => {
-        if (_pic.onMap) _pic.onMap = !_pic.onMap;
-      });
       Weapon.locations.forEach(_wep => {
         if (_wep.onMap) _wep.onMap = !_wep.onMap;
       });
@@ -50,9 +47,6 @@ class Menu {
       });
       Location.locations.forEach(_loc => {
         if (!_loc.onMap) _loc.onMap = !_loc.onMap;
-      });
-      Pickup.locations.forEach(_pic => {
-        if (!_pic.onMap) _pic.onMap = !_pic.onMap;
       });
       Weapon.locations.forEach(_wep => {
         if (!_wep.onMap) _wep.onMap = !_wep.onMap;
