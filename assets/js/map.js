@@ -35,7 +35,7 @@ const MapBase = {
         bounds: mapBoundary,
         attribution: '<a href="https://www.rockstargames.com/" target="_blank">Rockstar Games</a>',
       }),
-      'map.layers.colorful': L.tileLayer((isLocalHost() ? '' : 'https://jeanropke.b-cdn.net/') + 'assets/maps/colorful/{z}/{x}_{y}.jpg', {
+      'map.layers.colorful': L.tileLayer((isLocalHost() ? '' : 'https://jeanropke.b-cdn.net/') + 'assets/maps/colorful/{z}/{x}_{y}.png', {
         noWrap: true,
         bounds: mapBoundary,
         attribution: '',
@@ -149,9 +149,6 @@ const MapBase = {
     MapBase.map.on('resize', MapBase.map.invalidateSize);
 
     Layers.debugLayer.addTo(MapBase.map);
-
-    // Enable this and disable the above to see cool stuff.
-    // MapBase.loadOverlaysBeta();
     MapBase.setMapBackground();
   },
 
@@ -236,39 +233,6 @@ const MapBase = {
     // Puppeteer hack and utility for other extensions.
     // Allows utilities to wait for this global to then do their stuff.
     window.loaded = true;
-  },
-
-  loadOverlaysBeta: function () {
-    $.getJSON('data/overlays_beta.json?nocache=' + nocache)
-      .done(function (data) {
-        MapBase.overlaysBeta = data;
-        MapBase.setOverlaysBeta(Settings.overlayOpacity);
-        console.info('%c[Overlays] Loaded!', 'color: #bada55; background: #242424');
-      });
-  },
-
-  setOverlaysBeta: function (opacity = 0.5) {
-    Layers.overlaysLayer.clearLayers();
-
-    if (opacity === 0) return;
-
-    $.each(MapBase.overlaysBeta, function (key, value) {
-      var overlay = `assets/overlays/${(MapBase.isDarkMode ? 'dark' : 'normal')}/game/${value.name}.png?nocache=${nocache}`;
-
-      var x = (value.width / 2);
-      var y = (value.height / 2);
-      var scaleX = 0.00076;
-      var scaleY = scaleX;
-
-      Layers.overlaysLayer.addLayer(L.imageOverlay(overlay, [
-        [(parseFloat(value.lat) + (y * scaleY)), (parseFloat(value.lng) - (x * scaleX))],
-        [(parseFloat(value.lat) - (y * scaleY)), (parseFloat(value.lng) + (x * scaleX))]
-      ], {
-        opacity: opacity,
-      }));
-    });
-
-    Layers.overlaysLayer.addTo(MapBase.map);
   },
 
   gameToMap: function (lat, lng, name = 'Debug Marker') {
