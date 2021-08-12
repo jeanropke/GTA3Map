@@ -170,7 +170,7 @@ const MapBase = {
 
     // Set map theme according to param.
     const themeParam = getParameterByName('theme');
-    if (themeParam && ['default', 'detailed', 'dark', 'black'].includes(themeParam))
+    if (themeParam && ['game', 'colorful'].includes(themeParam))
       this.themeOverride = `map.layers.${themeParam}`;
 
     // Sets the map's default zoom level to anywhere between minZoom and maxZoom.
