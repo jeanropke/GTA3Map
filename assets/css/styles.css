@@ -1218,7 +1218,7 @@ a.no-style:visited {
         margin-top: 0;
     }
     .collectible-icon {
-        margin-top: 7px;
+        margin-top: 7px!important;
     }
     .side-menu .collectible-wrapper.new::before {
         top: 16px;

@@ -2,35 +2,36 @@ class Location {
   static init() {
     this.locations = [];
     this.quickParams = [];
-    this.context = $('.menu-hidden[data-type=locations]');
 
     return Loader.promises['locations'].consumeJson(data => {
-      data.forEach(item => {
-        this.locations.push(new Location(item));
-        this.quickParams.push(item.key);
+      data.forEach(items => {
+        items.data.forEach(item => this.locations.push(new Location(item, items.category)));
       });
       console.info('%c[Locations] Loaded!', 'color: #bada55; background: #242424');
       Menu.reorderMenu(this.context);
     });
   }
 
-  constructor(preliminary) {
+  constructor(preliminary, category) {
     Object.assign(this, preliminary);
+
+    this.category = category;
+    this.keyIcon = this.category == 'weapons' ? 'ammunations' : this.key;
 
     this.layer = L.layerGroup();
 
     this.onLanguageChanged();
 
     this.element = $(`<div class="collectible-wrapper" data-help="item" data-type="${this.key}">`)
-      .attr('data-tippy-content', Language.get(`map.locations.${this.key}.name`))
+      .attr('data-tippy-content', Language.get(`map.${this.category}.${this.key}.name`))
       .on('click', () => this.onMap = !this.onMap)
-      .append($(`<img class="collectible-icon" src="./assets/images/icons/${this.key}.png">`))
+      .append($(`<img class="collectible-icon" src="./assets/images/icons/${this.keyIcon}.png">`))
       .append($('<span class="collectible-text">')
         .toggleClass('disabled', !this.onMap)
-        .append($('<p class="collectible">').attr('data-text', `map.locations.${this.key}.name`)))
+        .append($('<p class="collectible">').attr('data-text', `map.${this.category}.${this.key}.name`)))
       .translate();
 
-    this.element.appendTo(Location.context);
+    this.element.appendTo($(`.menu-hidden[data-type=${category}]`));
 
     if (this.onMap)
       this.layer.addTo(MapBase.map);
@@ -38,7 +39,7 @@ class Location {
 
   onLanguageChanged() {
     this.markers = [];
-    this.locations.forEach(item => this.markers.push(new Marker(item.text, item.x, item.y, 'locations', this.key)));
+    this.locations.forEach(item => this.markers.push(new Marker(item.text, item.x, item.y, this.category, this.key)));
 
     this.reinitMarker();
   }
@@ -56,7 +57,7 @@ class Location {
             iconAnchor: [17 * Settings.markerSize, 42 * Settings.markerSize],
             popupAnchor: [1 * Settings.markerSize, -29 * Settings.markerSize],
             html: `<div>
-                  <img class="icon" src="assets/images/icons/${this.key}.png" alt="Icon">
+                  <img class="icon" src="assets/images/icons/${this.keyIcon}.png" alt="Icon">
                   <img class="background" src="assets/images/icons/marker_${MapBase.colorOverride || this.color}.png" alt="Background">
                   ${shadow}
                 </div>`,
@@ -78,17 +79,17 @@ class Location {
       this.layer.addTo(MapBase.map);
       this.element.children('span').removeClass('disabled');
       if (!MapBase.isPreviewMode)
-        localStorage.setItem(`gta3.locations.${this.key}`, 'true');
+        localStorage.setItem(`gta3.${this.category}.${this.key}`, 'true');
     } else {
       this.layer.remove();
       this.element.children('span').addClass('disabled');
       if (!MapBase.isPreviewMode)
-        localStorage.removeItem(`gta3.locations.${this.key}`);
+        localStorage.removeItem(`gta3.${this.category}.${this.key}`);
     }
-    MapBase.updateTippy('locations');
+    MapBase.updateTippy(this.category);
   }
   get onMap() {
-    return !!localStorage.getItem(`gta3.locations.${this.key}`);
+    return !!localStorage.getItem(`gta3.${this.category}.${this.key}`);
   }
 
   static onLanguageChanged() {

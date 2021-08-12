@@ -60,9 +60,8 @@ function init() {
 
   const collectables = Collectable.init();
   const locations = Location.init();
-  const weapons = Weapon.init();
 
-  Promise.all([collectables, locations, weapons])
+  Promise.all([collectables, locations])
     .then(() => {
       Loader.resolveMapModelLoaded();
       MapBase.afterLoad();
@@ -168,7 +167,6 @@ $('#language').on('change', function () {
 
   Collectable.onLanguageChanged();
   Location.onLanguageChanged();
-  Weapon.onLanguageChanged();
 
   MapBase.updateTippy('language');
 });
@@ -178,7 +176,6 @@ $('#marker-size').on('change', function () {
 
   Collectable.onSettingsChanged();
   Location.onSettingsChanged();
-  Weapon.onSettingsChanged();
 
   Pins.loadPins();
 });
@@ -188,7 +185,6 @@ $('#marker-opacity').on('change', function () {
 
   Collectable.onSettingsChanged();
   Location.onSettingsChanged();
-  Weapon.onSettingsChanged();
 
   Pins.loadPins();
 });
@@ -210,7 +206,6 @@ $('#marker-cluster').on('change', function () {
 
   Collectable.onSettingsChanged();
   Location.onSettingsChanged();
-  Weapon.onSettingsChanged();
 
   Pins.loadPins();
 });
@@ -224,7 +219,6 @@ $('#enable-marker-shadows').on('change', function () {
 
   Collectable.onSettingsChanged();
   Location.onSettingsChanged();
-  Weapon.onSettingsChanged();
 
   Pins.loadPins();
 });

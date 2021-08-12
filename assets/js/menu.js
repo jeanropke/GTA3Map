@@ -35,9 +35,6 @@ class Menu {
       Location.locations.forEach(_loc => {
         if (_loc.onMap) _loc.onMap = !_loc.onMap;
       });
-      Weapon.locations.forEach(_wep => {
-        if (_wep.onMap) _wep.onMap = !_wep.onMap;
-      });
       Pins.onMap = false;
     });
 
@@ -48,31 +45,17 @@ class Menu {
       Location.locations.forEach(_loc => {
         if (!_loc.onMap) _loc.onMap = !_loc.onMap;
       });
-      Weapon.locations.forEach(_wep => {
-        if (!_wep.onMap) _wep.onMap = !_wep.onMap;
-      });
       Pins.onMap = true;
     });
 
     $('.locations-hide-btn').on('click', function () {
       Location.locations.forEach(_loc => {
-        if (_loc.onMap) _loc.onMap = !_loc.onMap;
+        if (_loc.onMap && _loc.category == $(this).closest('.menu-hidden').data('type')) _loc.onMap = !_loc.onMap;
       });
     });
     $('.locations-show-btn').on('click', function () {
       Location.locations.forEach(_loc => {
-        if (!_loc.onMap) _loc.onMap = !_loc.onMap;
-      });
-    });
-
-    $('.weapons-hide-btn').on('click', function () {
-      Weapon.locations.forEach(_wep => {
-        if (_wep.onMap) _wep.onMap = !_wep.onMap;
-      });
-    });
-    $('.weapons-show-btn').on('click', function () {
-      Weapon.locations.forEach(_wep => {
-        if (!_wep.onMap) _wep.onMap = !_wep.onMap;
+        if (!_loc.onMap && _loc.category == $(this).closest('.menu-hidden').data('type')) _loc.onMap = !_loc.onMap;
       });
     });
   }
@@ -83,6 +66,6 @@ class Menu {
 
     if (!Settings.showTooltips) return;
 
-    Menu.tippyInstances = tippy('[data-tippy-content]', { theme: 'menu-theme' });
+    Menu.tippyInstances = tippy('[data-tippy-content]');
   }
 }
