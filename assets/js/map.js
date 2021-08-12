@@ -30,12 +30,12 @@ const MapBase = {
 
     //Please, do not use the GitHub map tiles. Thanks
     const mapLayers = {
-      'map.layers.game': L.tileLayer((isLocalHost() ? '' : 'https://jeanropke.b-cdn.net/') + 'assets/maps/game/{z}/{x}_{y}.jpg', {
+      'map.layers.game': L.tileLayer((isLocalHost() ? '' : 'https://jeanropke.b-cdn.net/') + 'assets/maps/gta3/game/{z}/{x}_{y}.jpg', {
         noWrap: true,
         bounds: mapBoundary,
         attribution: '<a href="https://www.rockstargames.com/" target="_blank">Rockstar Games</a>',
       }),
-      'map.layers.colorful': L.tileLayer((isLocalHost() ? '' : 'https://jeanropke.b-cdn.net/') + 'assets/maps/colorful/{z}/{x}_{y}.png', {
+      'map.layers.colorful': L.tileLayer((isLocalHost() ? '' : 'https://jeanropke.b-cdn.net/') + 'assets/maps/gta3/colorful/{z}/{x}_{y}.png', {
         noWrap: true,
         bounds: mapBoundary,
         attribution: '',
