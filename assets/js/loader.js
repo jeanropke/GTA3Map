@@ -49,7 +49,6 @@ class Loader {
 
 const urls = [
   'data/locations.json',
-  'data/weapons.json',
   'data/collectables.json'
 ];
 Loader.init(urls);
