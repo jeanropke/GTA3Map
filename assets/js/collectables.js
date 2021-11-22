@@ -64,14 +64,21 @@ class Collectable {
         }),
       });
 
-      if(this.collectable)
+      if (this.collectable)
         tempMarker.bindPopup(marker.updateMarkerContent.bind(marker, () => { marker.isCollected = !marker.isCollected; tempMarker.setOpacity(marker.isCollected ? .25 : 1); }), { minWidth: 300, maxWidth: 400 });
-      else      
+      else
         tempMarker.bindPopup(marker.updateMarkerContent.bind(marker, () => { this.onMap = false; console.log(this) }), { minWidth: 300, maxWidth: 400 });
-        
+
       this.layer.addLayer(tempMarker);
       if (Settings.isMarkerClusterEnabled)
         Layers.oms.addMarker(tempMarker);
+
+      tempMarker.on('contextmenu', () => {
+        if (this.collectable) {
+          marker.isCollected = !marker.isCollected;
+          tempMarker.setOpacity(marker.isCollected ? .25 : 1);
+        }
+      });
     });
   }
 
