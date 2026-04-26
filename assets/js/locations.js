@@ -3,10 +3,46 @@ class Location {
     this.locations = [];
     this.quickParams = [];
 
-    return Loader.promises['locations'].consumeJson(data => {
-      data.forEach(items => {
-        items.data.forEach(item => this.locations.push(new Location(item, items.category)));
+    return Promise.all([
+      Loader.promises['base_locations'].consumeJson(),
+      Loader.promises['ul_locations'].consumeJson()
+    ]).then(([baseData, ulData]) => {
+
+      const map = new Map();
+
+      function addData(data, source) {
+        data.forEach(group => {
+          group.data.forEach(item => {
+            const key = `${group.category}_${item.key}`;
+            if (!map.has(key)) {
+              map.set(key, {
+                category: group.category,
+                item: item,
+                locations: []
+              });
+            }
+
+            item.locations.forEach(loc => {
+              loc.source = source;
+              map.get(key).locations.push(loc);
+            });
+          });
+        });
+      }
+
+      addData(baseData, 'base');
+      addData(ulData, 'ul');
+
+      map.forEach(entry => {
+        const loc = new Location({
+          key: entry.item.key,
+          color: entry.item.color,
+          locations: entry.locations
+        }, entry.category);
+
+        this.locations.push(loc);
       });
+
       console.info('%c[Locations] Loaded!', 'color: #bada55; background: #242424');
       Menu.reorderMenu(this.context);
     });
@@ -14,6 +50,10 @@ class Location {
 
   constructor(preliminary, category) {
     Object.assign(this, preliminary);
+
+    this.locations = preliminary.locations || [];
+
+    this.source = preliminary.source ?? 'base';
 
     this.category = category;
     this.keyIcon = this.category == 'weapons' ? 'ammunations' : this.key;
@@ -37,9 +77,17 @@ class Location {
       this.layer.addTo(MapBase.map);
   }
 
-  onLanguageChanged() {
+   onLanguageChanged() {
     this.markers = [];
-    this.locations.forEach(item => this.markers.push(new Marker(item.text, item.x, item.y, this.category, this.key)));
+
+    const isUL = Settings.mapData === 'ul';
+
+    this.locations
+      .filter(item => item.x != null && item.y != null)
+      .filter(item => item.source === 'base' || (isUL && item.source === 'ul'))
+      .forEach(item => {
+        this.markers.push(new Marker(item.text, item.x, item.y, this.category, this.key));
+      });
 
     this.reinitMarker();
   }

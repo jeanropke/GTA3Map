@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description"
     content="Grand Theft Auto III Map. Find any useful items, locations or event around the map of GTAIII.">
-  <meta name="keywords" content="Grand Theft Auto 3, Grand Theft Auto III, GTA3 Map, GTAIII Map, GTA III, GTA 3, Map, Interactive Map, Interactive, jeanropke map, jeanropke">
+  <meta name="keywords"
+    content="Grand Theft Auto 3, Grand Theft Auto III, GTA3 Map, GTAIII Map, GTA III, GTA 3, Map, Interactive Map, Interactive, jeanropke map, jeanropke">
 
   <link rel="apple-touch-icon" sizes="60x60" href="./apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
@@ -48,6 +49,10 @@
     <div id="top-sticky">
       <div class="sticky-container">
         <div class="logo"></div>
+        <div id="game-toggle">
+          <div class="menu-base-toggle">Base Game</div>
+          <div class="menu-ul-toggle">Upstate Liberty</div>
+        </div>
       </div>
     </div>
 
@@ -55,7 +60,7 @@
       <a data-text="menu.hide_all" class="menu-hide-all" data-help="hide_all" href="javascript:void(0);">Hide all</a>
       <a data-text="menu.show_all" class="menu-show-all" data-help="show_all" href="javascript:void(0);">Show all</a>
     </div>
-    <div id="menu-container"></div>    
+    <div id="menu-container"></div>
     <div>
       <div class="menu-option submenu-only" data-type="locations" data-help="item_category">
         <span>
@@ -100,7 +105,8 @@
     </div>
     <div class="settings-container">
       <div class="explain-text">
-        <span class="menu-option-text" data-text="menu.translate_body">Translations are made by the community for the community.</span>
+        <span class="menu-option-text" data-text="menu.translate_body">Translations are made by the community for the
+          community.</span>
         <span id="translation-progress"></span>
         <a data-text="menu.translate_link" href="https://translate.rdo.gg/" target="_blank"
           rel="noopener noreferrer">Help us by translating on Crowdin.</a>
@@ -259,7 +265,7 @@
             <input class="input-checkbox" type="checkbox" name="show-coordinates" value="1" id="show-coordinates" />
             <label class="input-checkbox-label" for="show-coordinates"></label>
           </div>
-        </div>        
+        </div>
       </div>
     </div>
 
@@ -269,14 +275,15 @@
         <h2 class="header-title" data-text="menu.import_export_title">Import/Export</h2>
         <span class="header-border"></span>
       </div>
-  
+
       <div class="settings-container">
         <div class="input-container-noflex">
           <h4 class="no-margin-top" data-text="menu.settings_import_export_title">Settings</h4>
         </div>
         <div class="input-container-noflex">
           <p class="explain-text" data-text="menu.import_export_explanation">
-            This will import or export your settings. Importing settings will replace all current settings and reload the
+            This will import or export your settings. Importing settings will replace all current settings and reload
+            the
             page. This feature does not include pins.
           </p>
         </div>
@@ -352,7 +359,7 @@
       <h2 class="header-title" data-text="menu.information_links">Links/Information</h2>
       <span class="header-border"></span>
     </div>
-    <div class="settings-container">      
+    <div class="settings-container">
       <a class="no-style" href="https://github.com/jeanropke/GTA3Map/issues" target="_blank">
         <div class="input-container clickable" data-help="report_issues">
           <label data-text="menu.report_issues">Report issues here</label>
@@ -364,8 +371,8 @@
           <label data-text="menu.join_discord">Join our Discord!</label>
           <div class="input-action external"></div>
         </div>
-      </a>     
-      
+      </a>
+
     </div>
 
     <div id="bottom-sticky">
@@ -469,7 +476,18 @@
   </div>
 
   <!-- ES6 Compatibility Check -->
-  <script>function isES6() { try { return eval("() => {};"), !0 } catch (r) { return !1 } } isES6() || alert("This browser might not be fully supported, and errors will likely occur. Please update your browser if you experience issues.");</script>
+  <script>
+    function isES6() {
+      try {
+        return eval("() => {};"), !0
+      } catch (r) {
+        return !1
+      }
+    }
+    isES6() || alert(
+      "This browser might not be fully supported, and errors will likely occur. Please update your browser if you experience issues."
+      );
+  </script>
 
   <script src="assets/js/lib/jquery-3.4.1.min.js"></script>
   <script src="assets/js/lib/bootstrap.min.js"></script>
@@ -490,7 +508,7 @@
   <script src="assets/js/menu.js?nocache=1"></script>
   <script src="assets/js/scripts.js?nocache=1"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8337816533364971"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

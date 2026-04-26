@@ -1,0 +1,148 @@
+[
+  {
+  "category": "locations",
+  "data": [
+    {
+      "color": "pink",
+      "key": "safehouses",
+      "locations": [
+      ]
+    },
+    {
+      "color": "black",
+      "key": "bomb_shops",
+      "locations": [
+        {"text": "bomb_shop_4", "x": -9.4945, "y": 30.4863},
+        {"text": "bomb_shop_5", "x": -5.5603, "y": 45.4734}
+      ]
+    },
+    {
+      "color": "green",
+      "key": "ammunations",
+      "locations": [
+        {"text": "ammunation_4", "x": -5.4307, "y": 7.5249},
+        {"text": "ammunation_5", "x": -7.9179, "y": 30.6929},
+        {"text": "ammunation_6", "x": -7.3954, "y": 42.9967}
+      ]
+    },
+    {
+      "color": "orange",
+      "key": "paynsprays",
+      "locations": [
+        {"text": "paynspray_4", "x": -7.4761, "y": 22.7412},
+        {"text": "paynspray_5", "x": -9.1912, "y": 38.0112}
+      ]
+    },
+    {
+      "color": "yellow",
+      "key": "garages",
+      "locations": [
+      ]
+    }
+    ]
+  },
+  {
+    "category": "weapons",
+    "data": [
+      {
+        "color": "darkred",
+        "key": "baseball_bat",
+        "locations": [
+          {"text": "baseball_bat_4", "x": "-5.6362", "y": "21.7025"},
+          {"text": "baseball_bat_5", "x": "-10.8536", "y": "40.3384"}
+        ]
+      },
+      {
+        "color": "darkred",
+        "key": "ak47",
+        "locations": [
+          {"text": "ak47_6", "x": "-9.5414", "y": "29.6788"},
+          {"text": "ak47_7", "x": "-4.7887", "y": "38.1219"},
+          {"text": "ak47_8", "x": "-3.0470", "y": "43.9730"}
+        ]
+      },
+      {
+        "color": "darkred",
+        "key": "flame_thrower",
+        "locations": [
+          {"text": "flame_thrower_3", "x": "-1.8317", "y": "23.3560"},
+          {"text": "flame_thrower_4", "x": "-15.1951", "y": "18.7254"}
+        ]
+      },
+      {
+        "color": "darkred",
+        "key": "shotgun",
+        "locations": [
+          {"text": "shotgun_6", "x": "-4.0117", "y": "2.0219"},
+          {"text": "shotgun_7", "x": "-10.7295", "y": "25.2145"},
+          {"text": "shotgun_8", "x": "-14.4141", "y": "39.4917"},
+          {"text": "shotgun_9", "x": "-4.4162", "y": "36.0738"},
+          {"text": "shotgun_10", "x": "-3.7872", "y": "42.6413"}
+        ]
+      },
+      {
+        "color": "darkred",
+        "key": "uzi",
+        "locations": [
+          {"text": "uzi_4", "x": "-5.1565", "y": "8.3808"},
+          {"text": "uzi_5", "x": "-5.9425", "y": "28.6468"},
+          {"text": "uzi_6", "x": "-3.4185", "y": "27.9982"},
+          {"text": "uzi_7", "x": "-9.3243", "y": "38.1406"},
+          {"text": "uzi_8", "x": "-3.0733", "y": "43.9725"}
+        ]
+      },
+      {
+        "color": "darkred",
+        "key": "pistol",
+        "locations": [
+          {"text": "pistol_4", "x": "-10.7060", "y": "41.5857"}
+        ]
+      },
+      {
+        "color": "darkred",
+        "key": "sniper_rifle",
+        "locations": [
+          {"text": "sniper_rifle_2", "x": "-18.4360", "y": "12.3144"},
+          {"text": "sniper_rifle_3", "x": "-3.2256", "y": "6.7059"},
+          {"text": "sniper_rifle_4", "x": "-8.2803", "y": "43.9675"},
+          {"text": "sniper_rifle_5", "x": "-5.0321", "y": "36.2075"},
+          {"text": "sniper_rifle_6", "x": "-7.6812", "y": "38.0448"}
+        ]
+      },
+      {
+        "color": "darkred",
+        "key": "molotov",
+        "locations": [
+          {"text": "molotov_2", "x": "-13.8801", "y": "20.2289"},
+          {"text": "molotov_3", "x": "-3.6348", "y": "39.9673"},
+          {"text": "molotov_4", "x": "-6.0441", "y": "42.3631"}
+        ]
+      },
+      {
+        "color": "darkred",
+        "key": "m16",
+        "locations": [
+          {"text": "m16_4", "x": "-15.3274", "y": "6.9300"},
+          {"text": "m16_5", "x": "-6.3830", "y": "36.1024"},
+          {"text": "m16_6", "x": "-3.8248", "y": "42.6095"}
+        ]
+      },
+      {
+        "color": "darkred",
+        "key": "rocket_launcher",
+        "locations": [
+          {"text": "rocket_launcher_2", "x": "-2.3553", "y": "40.0062"},
+          {"text": "rocket_launcher_3", "x": "-3.0730", "y": "43.9507"},
+          {"text": "rocket_launcher_4", "x": "-3.7872", "y": "42.6109"}
+        ]
+      },
+      {
+        "color": "darkred",
+        "key": "grenade",
+        "locations": [
+          {"text": "grenade_1", "x": "-7.3405", "y": "42.0274"}
+        ]
+      }
+    ]
+  }
+]

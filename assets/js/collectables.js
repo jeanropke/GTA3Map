@@ -4,17 +4,52 @@ class Collectable {
     this.locations = [];
     this.context = $('#menu-container');
 
-    return Loader.promises['collectables'].consumeJson(data => {
-      data.forEach(item => {
-        this.locations.push(new Collectable(item));
-        this.quickParams.push(item.key);
+    return Promise.all([
+      Loader.promises['base_collectables'].consumeJson(),
+      Loader.promises['ul_collectables'].consumeJson()
+    ]).then(([baseData, ulData]) => {
+
+      const map = new Map();
+
+      function addData(data, source) {
+        data.forEach(group => {
+          const key = group.key;
+
+          if (!map.has(key)) {
+            map.set(key, {
+              key: group.key,
+              color: group.color,
+              collectable: group.collectable,
+              locations: []
+            });
+          }
+
+          group.locations.forEach(loc => {
+            loc.source = source;
+            map.get(key).locations.push(loc);
+          });
+        });
+      }
+
+      addData(baseData, 'base');
+      addData(ulData, 'ul');
+
+      map.forEach(entry => {
+        const col = new Collectable(entry);
+        this.locations.push(col);
+        this.quickParams.push(entry.key);
       });
+
       console.info('%c[Collectables] Loaded!', 'color: #bada55; background: #242424');
     });
   }
 
   constructor(preliminary) {
     Object.assign(this, preliminary);
+
+    this.locations = preliminary.locations || [];
+
+    this.source = preliminary.source ?? 'base';
 
     this.layer = L.layerGroup();
 
@@ -37,7 +72,15 @@ class Collectable {
 
   onLanguageChanged() {
     this.markers = [];
-    this.locations.forEach(item => this.markers.push(new Marker(item.key, item.x, item.y, this.key, item.time)));
+
+    const isUL = Settings.mapData === 'ul';
+
+    this.locations
+      .filter(item => item.x != null && item.y != null)
+      .filter(item => item.source === 'base' || (isUL && item.source === 'ul'))
+      .forEach(item => {
+        this.markers.push(new Marker(item.key, item.x, item.y, this.key, item.time));
+      });
 
     this.reinitMarker();
   }

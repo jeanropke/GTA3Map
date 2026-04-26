@@ -9,7 +9,12 @@ class Loader {
     this.urls = new Map();
     this.promises = {};
     urls.forEach(url => {
-      const name = url.split('/').filter(e => e).pop().split('.', 1)[0];
+      const parts = url.split('/').filter(e => e);
+      const folder = parts[parts.length - 2]; // base / ul
+      const file = parts.pop().split('.', 1)[0];
+
+      const name = `${folder}_${file}`;
+      
       this.promises[name] = new Loader(name, url);
       this.urls.set(name, url);
     });
@@ -48,7 +53,9 @@ class Loader {
 }
 
 const urls = [
-  'data/locations.json',
-  'data/collectables.json'
+  'data/base/locations.json',
+  'data/base/collectables.json',
+  'data/ul/locations.json',
+  'data/ul/collectables.json'
 ];
 Loader.init(urls);

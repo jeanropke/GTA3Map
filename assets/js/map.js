@@ -28,19 +28,7 @@ const MapBase = {
     this.tippyInstances = [];
     const mapBoundary = L.latLngBounds(L.latLng(-48, 0), L.latLng(0, 48));
 
-    //Please, do not use the GitHub map tiles. Thanks
-    const mapLayers = {
-      'map.layers.game': L.tileLayer((isLocalHost() ? './assets/maps/' : 'https://jeanropke.b-cdn.net/assets/maps/gta3/') + 'game/{z}/{x}_{y}.jpg', {
-        noWrap: true,
-        bounds: mapBoundary,
-        attribution: '<a href="https://www.rockstargames.com/" target="_blank">Rockstar Games</a>',
-      }),
-      'map.layers.colorful': L.tileLayer((isLocalHost() ? './assets/maps/' : 'https://jeanropke.b-cdn.net/assets/maps/gta3/') + 'colorful/{z}/{x}_{y}.png', {
-        noWrap: true,
-        bounds: mapBoundary,
-        attribution: '',
-      })
-    };
+    this.mapLayers = this.createMapLayers();
 
     // Override bindPopup to include mouseover and mouseout logic.
     L.Layer.include({
@@ -98,7 +86,7 @@ const MapBase = {
       maxZoom: this.maxZoom,
       zoomControl: false,
       crs: L.CRS.Simple,
-      layers: [mapLayers[this.themeOverride || Settings.baseLayer]],
+      layers: [this.mapLayers[this.themeOverride || Settings.baseLayer]]
     }).setView([this.viewportX, this.viewportY], this.viewportZoom);
 
     MapBase.map.addControl(
@@ -112,16 +100,7 @@ const MapBase = {
       position: 'bottomright',
     }).addTo(MapBase.map);
 
-    L.control.layers(mapLayers).addTo(MapBase.map);
-
-    // Leaflet leaves the layer names here, with a space in front of them.
-    $('.leaflet-control-layers-list span').each(function (index, node) {
-
-      // Move the layer name (which is chosen to be our language key) into a
-      // new tightly fitted span for use with our localization.
-      const langKey = node.textContent.trim();
-      $(node).html([' ', $('<span>').attr('data-text', langKey).text(langKey)]);
-    });
+    this.layerControl = L.control.layers(this.mapLayers).addTo(MapBase.map);
 
     MapBase.map.on('baselayerchange', function (e) {
       Settings.baseLayer = e.name;
@@ -225,6 +204,10 @@ const MapBase = {
 
     Menu.updateTippy();
     MapBase.updateTippy('afterLoad');
+
+    if (Settings.mapData == 'base') {
+      $('.menu-ul-toggle').addClass('disabled');
+    }
 
     // Puppeteer hack and utility for other extensions.
     // Allows utilities to wait for this global to then do their stuff.
@@ -366,6 +349,59 @@ const MapBase = {
 
     var bounds = L.latLngBounds(this.map.containerPointToLatLng(southWest), this.map.containerPointToLatLng(northEast));
     L.rectangle(bounds).addTo(this.map);
+  },
+
+  createMapLayers: function () {
+    //Please, do not use the GitHub map tiles. Thanks
+    const mapBoundary = L.latLngBounds(L.latLng(-48, 0), L.latLng(0, 48));
+    const basePath = (isLocalHost()
+      ? './assets/maps/'
+      : 'https://jeanropke.b-cdn.net/assets/maps/gta3/');
+
+    return {
+      'map.layers.game': L.tileLayer(
+        basePath + Settings.mapData + '/game/{z}/{x}_{y}.jpg',
+        { noWrap: true, bounds: mapBoundary }
+      ),
+      'map.layers.colorful': L.tileLayer(
+        basePath + Settings.mapData + '/colorful/{z}/{x}_{y}.png',
+        { noWrap: true, bounds: mapBoundary }
+      )
+    };
+  },
+
+  setMapData: function (type) {
+    Settings.mapData = type;
+
+    MapBase.map.eachLayer(layer => {
+      if (layer instanceof L.TileLayer) {
+        MapBase.map.removeLayer(layer);
+      }
+    });
+
+    if (this.layerControl) {
+      MapBase.map.removeControl(this.layerControl);
+      this.layerControl = null;
+    }
+
+    this.mapLayers = this.createMapLayers();
+
+    const activeLayer = this.mapLayers[this.themeOverride || Settings.baseLayer];
+    activeLayer.addTo(MapBase.map);
+
+    this.layerControl = L.control.layers(this.mapLayers).addTo(MapBase.map);
+
+    this.onLanguageChanged();
+  },
+
+  onLanguageChanged: function() {
+    // Leaflet leaves the layer names here, with a space in front of them.
+    $('.leaflet-control-layers-list span').each(function (index, node) {
+      // Move the layer name (which is chosen to be our language key) into a
+      // new tightly fitted span for use with our localization.
+      const langKey = node.textContent.trim();
+      $(node).html([' ', $('<span>').attr('data-text', langKey).text(Language.get(langKey))]);
+    });
   },
 
   //R* converting stuff

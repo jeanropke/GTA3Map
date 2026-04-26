@@ -1,8 +1,8 @@
 @font-face {
     font-family: "GTAPricedown";
     src: url("../fonts/gtaCash_PricedownGTA.ttf") format("ttf"),
-         url("../fonts/gtaCash_PricedownGTA.woff") format("woff");
-  }
+        url("../fonts/gtaCash_PricedownGTA.woff") format("woff");
+}
 
 *,
 *:before,
@@ -19,7 +19,8 @@
     border-radius: 3px;
 }
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
@@ -425,10 +426,8 @@ select {
 .links-container {
     display: flex;
     justify-content: space-around;
-    border-top: 1px solid #b0b0b0;
     border-bottom: 1px solid #b0b0b0;
     padding: 10px 0;
-    margin: 15px 0;
 }
 
 .links-container a {
@@ -592,6 +591,7 @@ select {
     top: 7px;
     content: '';
 }
+
 .side-menu .collectible-wrapper.new::before {
     background: url(../images/star.png) no-repeat;
     background-size: contain;
@@ -602,6 +602,7 @@ select {
     top: 8px;
     content: '';
 }
+
 .side-menu .disabled {
     opacity: .5;
 }
@@ -829,13 +830,13 @@ a.wiki-page:visited {
 }
 
 .help-popup {
-    position: fixed; 
-    width: 100%; 
-    height: 100%; 
-    background: rgba(0, 0, 0, .2); 
-    z-index: 1010; 
-    padding: 5%; 
-    color: #eee; 
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .2);
+    z-index: 1010;
+    padding: 5%;
+    color: #eee;
     display: none;
 }
 
@@ -1160,6 +1161,7 @@ a.no-style:visited {
         text-align: center;
         padding: 0 !important;
     }
+
     .modal:before {
         content: '';
         display: inline-block;
@@ -1167,14 +1169,17 @@ a.no-style:visited {
         vertical-align: middle;
         margin-right: -4px;
     }
+
     .modal-body {
         max-height: 650px !important;
     }
+
     .modal-dialog {
         display: inline-block;
         text-align: left;
         vertical-align: middle;
     }
+
     .modal-sm {
         width: 450px;
     }
@@ -1205,21 +1210,26 @@ a.no-style:visited {
 }
 
 @media (max-width: 768px) {
+
     .side-menu .menu-hidden .collectible,
     .input-container label {
         line-height: 38px;
     }
+
     .input-checkbox-wrapper .input-checkbox+.input-checkbox-label,
     .input-text,
     .input-action {
         margin-top: 5px;
     }
+
     .daily-checkbox .input-checkbox+.input-checkbox-label {
         margin-top: 0;
     }
+
     .collectible-icon {
-        margin-top: 7px!important;
+        margin-top: 7px !important;
     }
+
     .side-menu .collectible-wrapper.new::before {
         top: 16px;
         right: 0;
@@ -1232,15 +1242,19 @@ a.no-style:visited {
         left: -400px;
         top: 0;
     }
+
     .menu-opened {
         left: 0;
     }
+
     .timer-menu-opened {
         left: 410px;
     }
+
     .counter-menu-opened {
         left: 410px;
     }
+
     .top-widget-menu-opened {
         left: 405px;
     }
@@ -1585,4 +1599,14 @@ a.no-style:visited {
 button.full-popup-width {
     margin: 10px 0 5px 0;
     width: 100%;
+}
+
+#game-toggle {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-bottom: 1px solid #b0b0b0;
+}
+#game-toggle > .disabled {
+    opacity: .5;
 }

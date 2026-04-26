@@ -58,6 +58,27 @@ class Menu {
         if (!_loc.onMap && _loc.category == $(this).closest('.menu-hidden').data('type')) _loc.onMap = !_loc.onMap;
       });
     });
+
+    $('.menu-base-toggle').on('click', function () {
+      if (Settings.mapData == 'base') return;
+      MapBase.setMapData('base');
+
+      Collectable.onLanguageChanged();
+      Location.onLanguageChanged();
+
+      $('.menu-ul-toggle').addClass('disabled');
+    });
+
+    $('.menu-ul-toggle').on('click', function () {
+      if (Settings.mapData == 'ul') return;
+      MapBase.setMapData('ul');
+
+      Collectable.onLanguageChanged();
+      Location.onLanguageChanged();
+
+      $('.menu-base-toggle').removeClass('disabled');
+      $('.menu-ul-toggle').removeClass('disabled');
+    });
   }
 
   static updateTippy() {
