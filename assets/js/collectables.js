@@ -108,9 +108,13 @@ class Collectable {
       });
 
       if (this.collectable)
-        tempMarker.bindPopup(marker.updateMarkerContent.bind(marker, () => { marker.isCollected = !marker.isCollected; tempMarker.setOpacity(marker.isCollected ? .25 : 1); }), { minWidth: 300, maxWidth: 400 });
+        tempMarker.bindPopup(marker.updateMarkerContent.bind(marker, () => {
+          marker.isCollected = !marker.isCollected;
+          if (this.key === 'rampage') this.reinitMarker();
+          else tempMarker.setOpacity(marker.isCollected ? .25 : 1);
+        }), { minWidth: 300, maxWidth: 400 });
       else
-        tempMarker.bindPopup(marker.updateMarkerContent.bind(marker, () => { this.onMap = false; console.log(this) }), { minWidth: 300, maxWidth: 400 });
+        tempMarker.bindPopup(marker.updateMarkerContent.bind(marker, () => { this.onMap = false; }), { minWidth: 300, maxWidth: 400 });
 
       this.layer.addLayer(tempMarker);
       if (Settings.isMarkerClusterEnabled)
@@ -119,7 +123,8 @@ class Collectable {
       tempMarker.on('contextmenu', () => {
         if (this.collectable) {
           marker.isCollected = !marker.isCollected;
-          tempMarker.setOpacity(marker.isCollected ? .25 : 1);
+          if (this.key === 'rampage') this.reinitMarker();
+          else tempMarker.setOpacity(marker.isCollected ? .25 : 1);
         }
       });
     });

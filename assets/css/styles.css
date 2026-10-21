@@ -1610,3 +1610,21 @@ button.full-popup-width {
 #game-toggle > .disabled {
     opacity: .5;
 }
+.garage-progress ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 12px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px;
+}
+
+.garage-progress li.delivered {
+    opacity: .55;
+    text-decoration: line-through;
+}
+
+.garage-progress li > span:first-child {
+    display: inline-block;
+    width: 18px;
+}

@@ -57,6 +57,7 @@ function init() {
 
   changeCursor();
   Pins.init();
+  Save.init();
 
   const collectables = Collectable.init();
   const locations = Location.init();
@@ -437,4 +438,15 @@ function linear(value, iMin, iMax, oMin, oMax) {
     return num <= min ? min : num >= max ? max : num;
   };
   return clamp((((value - iMin) / (iMax - iMin)) * (oMax - oMin) + oMin), oMin, oMax);
+}
+
+function createSpatialIndex(pickups, precision = 1) {
+    const map = new Map();
+
+    pickups.forEach(p => {
+        const key = `${(0.0121 * p.y + -23.95).toFixed(precision)}|${(0.012 * p.x + 24).toFixed(precision)}`;
+        map.set(key, p);
+    });
+
+    return map;
 }
