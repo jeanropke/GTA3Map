@@ -192,3 +192,63 @@ test('garage progress persists and a subsequent import replaces the previous che
     assert(marker.getGarageProgressContent().includes('0 / 7'));
     assert.equal(refreshes, 2);
 });
+
+function dropSetup() {
+    const ctx = setup();
+    const handlers = {}, classes = new Set(), imported = [], alerts = [];
+    let buttonClick;
+    ctx.$ = () => ({on(event, handler) {buttonClick = handler;}, prop() {return [{name: 'selected.b'}];}});
+    ctx.document = {
+        body: {dataset: {}, classList: {add: value => classes.add(value), remove: value => classes.delete(value)}},
+        addEventListener(event, handler, capture) {assert.equal(capture, true); handlers[event] = handler;}
+    };
+    ctx.window = {addEventListener(event, handler) {handlers[event] = handler;}};
+    ctx.alert = message => alerts.push(message);
+    ctx.SaveClass.importFile = file => imported.push(file);
+    ctx.SaveClass.init();
+    const event = (files = [{name: 'GTA3sf5.b'}], types = ['Files']) => ({
+        dataTransfer: {types, files}, prevented: false, stopped: false,
+        preventDefault() {this.prevented = true;}, stopPropagation() {this.stopped = true;}
+    });
+    return {ctx, handlers, classes, imported, alerts, event, buttonClick: () => buttonClick()};
+}
+
+test('dropping a save anywhere uses the same import as the file picker', () => {
+    const {handlers, classes, imported, event, buttonClick} = dropSetup();
+    handlers.dragenter(event());
+    assert(classes.has('save-drag-active'));
+    const drop = event([{name: 'GTA3sf5.B'}]);
+    handlers.drop(drop);
+    assert(drop.prevented && drop.stopped);
+    assert.equal(classes.size, 0);
+    assert.equal(imported[0].name, 'GTA3sf5.B');
+    buttonClick();
+    assert.equal(imported[1].name, 'selected.b');
+});
+
+test('nested drag events keep the indicator visible until exit or cancellation', () => {
+    const {handlers, classes, event} = dropSetup();
+    handlers.dragenter(event()); handlers.dragenter(event()); handlers.dragleave(event());
+    assert(classes.has('save-drag-active'));
+    const over = event(); handlers.dragover(over);
+    assert(over.prevented);
+    assert.equal(over.dataTransfer.dropEffect, 'copy');
+    handlers.dragleave(event());
+    assert.equal(classes.size, 0);
+    handlers.dragenter(event()); handlers.blur();
+    assert.equal(classes.size, 0);
+});
+
+test('drop rejects non-saves and multiple files while ignoring ordinary text drags', () => {
+    const {handlers, imported, alerts, event, classes} = dropSetup();
+    for (const files of [[{name: 'image.png'}], [{name: 'one.b'}, {name: 'two.b'}], []]) {
+        handlers.dragenter(event()); const drop = event(files); handlers.drop(drop);
+        assert(drop.prevented);
+        assert.equal(classes.size, 0);
+    }
+    assert.equal(imported.length, 0);
+    assert.equal(alerts.length, 3);
+    const text = event([], ['text/plain']); handlers.dragenter(text); handlers.drop(text);
+    assert.equal(text.prevented, false);
+    assert.equal(classes.size, 0);
+});

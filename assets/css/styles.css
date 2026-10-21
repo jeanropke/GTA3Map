@@ -1664,3 +1664,20 @@ button.full-popup-width {
     user-select: none;
     cursor: pointer;
 }
+
+body.save-drag-active::after {
+    content: attr(data-save-drop-label);
+    position: fixed;
+    inset: 12px;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px dashed #eee;
+    background: #000000b0;
+    color: #fff;
+    padding: 24px;
+    font-size: 24px;
+    text-align: center;
+    pointer-events: none;
+}

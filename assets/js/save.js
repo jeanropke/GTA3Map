@@ -1,68 +1,105 @@
 class Save {
     static init() {
-        $('#save-import').on('click', function () {
-            try {
-                let file = $('#save-import-file').prop('files')[0];
-                let fallback = false;
-
-                if (!file) {
-                    alert(Language.get('alerts.file_not_found'));
-                    return;
-                }
-
-                const reader = new FileReader();
-
-                reader.onload = (e) => {
-                    const buffer = e.target.result;
-
-                    try {
-                        const save = new Gta3SaveReader(buffer);
-
-                        if (!save.hasSupportedProgressLayout()) {
-                            alert(Language.get('alerts.save_not_supported'));
-                            return;
-                        }
-                        const progress = save.readBaseProgress();
-                        const garages = save.readGarageProgress();
-                        const pickups = save.readPickups();
-
-                        const packages = Collectable.locations.find(group => group.key === 'hidden_packages');
-                        if (!packages) throw new Error('Hidden packages category not loaded');
-                        const markers = packages.markers;
-                        const index = createSpatialIndex(pickups.filter(pickup => pickup.isHiddenPackage()));
-
-
-                        markers.forEach(obj => {
-                            const p = obj;
-
-                            const key = `${p.lat.toFixed(1)}|${p.lng.toFixed(1)}`;
-                            const match = index.get(key);
-
-                            if (match) {
-                                p.isCollected = match.collected;
-                            }
-                        });
-
-                        packages.reinitMarker();
-                        Save.importRampages(pickups);
-                        Save.importProgress(progress);
-                        Save.importGarageProgress(garages);
-
-
-                    } catch (error) {
-                        console.error(error);
-                        alert(Language.get('alerts.file_not_valid'));
-                    }
-                };
-
-                reader.readAsArrayBuffer(file);
-
-            } catch (error) {
-                console.error(error);
-                alert(Language.get('alerts.feature_not_supported'));
+        $('#save-import').on('click', () => Save.importFile($('#save-import-file').prop('files')[0]));
+        let dragDepth = 0;
+        const isFileDrag = event => Array.from(event.dataTransfer?.types || []).includes('Files');
+        const clearDrag = () => {
+            dragDepth = 0;
+            document.body.classList.remove('save-drag-active');
+        };
+        document.addEventListener('dragenter', event => {
+            if (!isFileDrag(event)) return;
+            event.preventDefault();
+            dragDepth++;
+            document.body.dataset.saveDropLabel = Language.get('menu.drop_save');
+            document.body.classList.add('save-drag-active');
+        }, true);
+        document.addEventListener('dragover', event => {
+            if (!isFileDrag(event)) return;
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'copy';
+        }, true);
+        document.addEventListener('dragleave', event => {
+            if (!isFileDrag(event)) return;
+            if (--dragDepth <= 0) clearDrag();
+        }, true);
+        document.addEventListener('drop', event => {
+            if (!isFileDrag(event)) return;
+            event.preventDefault();
+            event.stopPropagation();
+            clearDrag();
+            const files = Array.from(event.dataTransfer.files);
+            if (files.length !== 1 || !/\.b$/i.test(files[0].name)) {
+                alert(Language.get('alerts.drop_save_file'));
+                return;
             }
-        });
+            Save.importFile(files[0]);
+        }, true);
+        window.addEventListener('blur', clearDrag);
     }
+
+    static importFile(file) {
+        try {
+            if (!file) {
+                alert(Language.get('alerts.file_not_found'));
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = async (e) => {
+                const buffer = e.target.result;
+
+                try {
+                    await Loader.mapModelLoaded;
+                    const save = new Gta3SaveReader(buffer);
+
+                    if (!save.hasSupportedProgressLayout()) {
+                        alert(Language.get('alerts.save_not_supported'));
+                        return;
+                    }
+                    const progress = save.readBaseProgress();
+                    const garages = save.readGarageProgress();
+                    const pickups = save.readPickups();
+
+                    const packages = Collectable.locations.find(group => group.key === 'hidden_packages');
+                    if (!packages) throw new Error('Hidden packages category not loaded');
+                    const markers = packages.markers;
+                    const index = createSpatialIndex(pickups.filter(pickup => pickup.isHiddenPackage()));
+
+
+                    markers.forEach(obj => {
+                        const p = obj;
+
+                        const key = `${p.lat.toFixed(1)}|${p.lng.toFixed(1)}`;
+                        const match = index.get(key);
+
+                        if (match) {
+                            p.isCollected = match.collected;
+                        }
+                    });
+
+                    packages.reinitMarker();
+                    Save.importRampages(pickups);
+                    Save.importProgress(progress);
+                    Save.importGarageProgress(garages);
+
+
+                } catch (error) {
+                    console.error(error);
+                    alert(Language.get('alerts.file_not_valid'));
+                }
+            };
+
+            reader.onerror = () => alert(Language.get('alerts.file_not_valid'));
+            reader.readAsArrayBuffer(file);
+
+        } catch (error) {
+            console.error(error);
+            alert(Language.get('alerts.feature_not_supported'));
+        }
+    }
+
     static importRampages(pickups) {
         const rampages = Collectable.locations.find(group => group.key === 'rampage');
         if (!rampages) return;
