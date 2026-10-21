@@ -280,12 +280,10 @@ class Pins {
 
   static importPins(text) {
     if (Pins.isValidJSON(text)) {
-      console.log(text);
       localStorage.setItem('gta3.pinned-items', text);
       this.loadPins();
     } else {
       alert(Language.get('alerts.file_not_valid'));
-      console.log(text);
     }
   }
 

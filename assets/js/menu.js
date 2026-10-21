@@ -70,14 +70,14 @@ class Menu {
     });
 
     $('.menu-ul-toggle').on('click', function () {
-      if (Settings.mapData == 'ul') return;
-      MapBase.setMapData('ul');
+      const enableUL = Settings.mapData !== 'ul';
+      MapBase.setMapData(enableUL ? 'ul' : 'base');
 
       Collectable.onLanguageChanged();
       Location.onLanguageChanged();
 
       $('.menu-base-toggle').removeClass('disabled');
-      $('.menu-ul-toggle').removeClass('disabled');
+      $('.menu-ul-toggle').toggleClass('disabled', !enableUL);
     });
   }
 

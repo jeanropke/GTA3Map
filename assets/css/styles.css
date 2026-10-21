@@ -435,6 +435,10 @@ select {
     text-decoration: none;
 }
 
+.links-container a:focus {
+    outline: none;
+}
+
 .settings-container {
     padding: 0 10px;
     margin: 5px 0;
@@ -1607,8 +1611,14 @@ button.full-popup-width {
     padding: 10px 0;
     border-bottom: 1px solid #b0b0b0;
 }
+#game-toggle > div {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 #game-toggle > .disabled {
     opacity: .5;
+    text-decoration: none;
 }
 .garage-progress ul {
     display: grid;

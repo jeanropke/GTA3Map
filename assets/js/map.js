@@ -394,7 +394,7 @@ const MapBase = {
     this.onLanguageChanged();
   },
 
-  onLanguageChanged: function() {
+  onLanguageChanged: function () {
     // Leaflet leaves the layer names here, with a space in front of them.
     $('.leaflet-control-layers-list span').each(function (index, node) {
       // Move the layer name (which is chosen to be our language key) into a
@@ -430,4 +430,11 @@ const MapBase = {
   _num_distance: function (t, i) {
     return t > i ? t - i : i - t;
   },
+  
+  distanceSquared: function (a, b) {
+    const dx = a.x - b.x;
+    const dy = a.y - b.y;
+
+    return dx * dx + dy * dy;
+  }
 };
