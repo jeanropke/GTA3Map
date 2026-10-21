@@ -1638,3 +1638,29 @@ button.full-popup-width {
     display: inline-block;
     width: 18px;
 }
+
+.menu-ad {
+    padding: 20px 10px;
+}
+
+.menu-ad-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+}
+
+#menu-ad-close {
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background-color: #000000b0;
+    color: #eee;
+    font: inherit;
+    font-style: normal;
+    text-align: center;
+    line-height: 1.85;
+    user-select: none;
+    cursor: pointer;
+}
